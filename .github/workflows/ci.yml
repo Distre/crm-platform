@@ -13,11 +13,10 @@ jobs:
       - name: Sjekk ut koden
         uses: actions/checkout@v3
 
-      - name: Sett opp Node.js og pnpm cache
+      - name: Sett opp Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-          cache: 'pnpm'
 
       - name: Installer pnpm globalt
         run: npm install -g pnpm
