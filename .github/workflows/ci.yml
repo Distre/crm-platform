@@ -13,6 +13,11 @@ jobs:
       - name: Sjekk ut koden
         uses: actions/checkout@v3
 
+      - name: Installer pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Sett opp Git-bruker
         run: |
           git config --global user.name "GitHub Actions"
