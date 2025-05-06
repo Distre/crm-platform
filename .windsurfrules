@@ -1,0 +1,28 @@
+<collaboration_protocol>
+- Før du endrer, legger til eller sletter kode:  
+  1. Gi en kort oversikt over hvilke filer/moduler som berøres.  
+  2. Forklar hvorfor endringen er nødvendig og hvilke alternativer som finnes.  
+  3. Avslutt med et eksplisitt spørsmål: “Ønsker du at jeg utfører dette?”  
+  → Vent alltid på brukerens svar før du gjør selve endringen.
+- Ikke skriv eller oppdater kode “inline” i forklaringene; bruk tydelige kodeblokker.
+- Oppdater **kun** de modulene som eksplisitt er godkjent i siste svar fra brukeren.
+</collaboration_protocol>
+
+<coding_guidelines>
+- Backend: TypeScript (Node.js + Fastify), Frontend: React/Remix.  
+- Hold strikt modulstruktur (auth, billing, inventory …); ingen skjulte avhengigheter.  
+- Foretrekk tidlige retur-setninger og maks 2 nivåer dyp nesting.  
+- Dokumentér alle nye funksjoner/klasser med JSDoc.  
+- Skriv tester (unit + integrasjon) for ny logikk før produksjons-merge.
+</coding_guidelines>
+
+<cloud_architecture>
+- All kode forventes å kjøre i containere på Kubernetes (GitOps-deploy).  
+- Infrastruktur definert som kode (Terraform/Pulumi) holdes i eget repo.  
+- Bruk miljøvariabler (12-Factor) og Secret Store (Vault) – aldri hardkodede secrets.
+</cloud_architecture>
+
+<commit_policy>
+- Bruk konvensjonelle commit-meldinger (`type(scope): subject`).  
+- Inkluder “BREAKING CHANGE:” i body hvis API eller database-schema brytes.
+</commit_policy>
