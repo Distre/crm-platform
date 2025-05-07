@@ -8,8 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  BACKEND_IMAGE_NAME: ${{ toLowerCase(github.repository_owner) }}/crm-platform/crm-core
-  FRONTEND_IMAGE_NAME: ${{ toLowerCase(github.repository_owner) }}/crm-platform/web-frontend
+  REPO_OWNER: ${{ github.repository_owner }}
 
 jobs:
   backend:
@@ -24,6 +23,7 @@ jobs:
       CI: true
       NODE_ENV: test
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/crm_test
+      IMAGE_NAME: ${{ env.REGISTRY }}/${{ env.REPO_OWNER,,}}/crm-platform/crm-core
 
     services:
       postgres:
@@ -99,7 +99,7 @@ jobs:
         with:
           context: ./crm-core
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE_NAME }}:latest
+          tags: ${{ env.IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -114,6 +114,7 @@ jobs:
       HUSKY: 0
       CI: true
       VITE_API_URL: http://localhost:3000
+      IMAGE_NAME: ${{ env.REGISTRY }}/${{ env.REPO_OWNER,,}}/crm-platform/web-frontend
 
     steps:
       - name: Checkout code
@@ -174,7 +175,7 @@ jobs:
         with:
           context: ./web-frontend
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE_NAME }}:latest
+          tags: ${{ env.IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
         
