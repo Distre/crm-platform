@@ -1,1 +1,39 @@
+# Dependencies
+node_modules/
+**/.pnpm/
+.pnpm-store/
+.pnpm-debug.log*
+.pnpm-workspace.yaml
+
+# Environment
+.env
+.env.*
+!.env.example
 crm-core/.env
+
+# Build outputs
+dist/
+build/
+coverage/
+.cache/
+
+# TypeScript
+*.tsbuildinfo
+*.d.ts
+
+# Generated config files
+*.config.js
+!jest.config.js
+!vite.config.js
+
+# IDE and OS files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
