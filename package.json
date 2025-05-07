@@ -3,19 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "build": "tsc -p tsconfig.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "packageManager": "pnpm@10.10.0",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.32.0",
     "@typescript-eslint/parser": "^8.32.0",
-    "eslint": "^8.57.1",
-    "eslint-define-config": "^2.1.0"
+    "eslint": "^8.57.1"
   }
 }
