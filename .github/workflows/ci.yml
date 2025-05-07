@@ -32,5 +32,14 @@ jobs:
       #- name: Kjøre tester
       #  run: pnpm run test
 
-      - name: Bygg prosjektet
-        run: pnpm run build
+      - name: Bygg backend (NestJS)
+        run: |
+          cd crm-core
+          pnpm install --no-frozen-lockfile
+          pnpm run build
+
+      - name: Bygg frontend (Vite)
+        run: |
+          cd web-frontend
+          pnpm install --no-frozen-lockfile
+          pnpm run build
