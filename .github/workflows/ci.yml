@@ -18,14 +18,19 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Installer pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10'
+
       - name: Installer avhengigheter
-        run: npm install
+        run: pnpm install --frozen-lockfile
 
       - name: Kjøre linting
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Kjøre tester
-        run: npm run test
+        run: pnpm run test
 
       - name: Bygg prosjektet
-        run: npm run build
+        run: pnpm run build
