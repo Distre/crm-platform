@@ -8,8 +8,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  BACKEND_IMAGE_NAME: ${{ github.repository }}/crm-core
-  FRONTEND_IMAGE_NAME: ${{ github.repository }}/web-frontend
+  BACKEND_IMAGE_NAME: ${{ toLowerCase(github.repository_owner) }}/crm-platform/crm-core
+  FRONTEND_IMAGE_NAME: ${{ toLowerCase(github.repository_owner) }}/crm-platform/web-frontend
 
 jobs:
   backend:
