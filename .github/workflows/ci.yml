@@ -19,8 +19,6 @@ jobs:
       CI: true
       NODE_ENV: test
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/crm_test
-      OWNER: distre
-      IMAGE_NAME: ghcr.io/${{ env.OWNER }}/crm-platform/crm-core
 
     services:
       postgres:
@@ -96,7 +94,7 @@ jobs:
         with:
           context: ./crm-core
           push: true
-          tags: ghcr.io/${{ env.OWNER }}/crm-platform/crm-core:latest
+          tags: ghcr.io/distre/crm-platform/crm-core:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -111,8 +109,6 @@ jobs:
       HUSKY: 0
       CI: true
       VITE_API_URL: http://localhost:3000
-      OWNER: distre
-      IMAGE_NAME: ghcr.io/${{ env.OWNER }}/crm-platform/web-frontend
 
     steps:
       - name: Checkout code
@@ -173,7 +169,7 @@ jobs:
         with:
           context: ./web-frontend
           push: true
-          tags: ghcr.io/${{ env.OWNER }}/crm-platform/web-frontend:latest
+          tags: ghcr.io/distre/crm-platform/web-frontend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
         
