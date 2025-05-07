@@ -1,16 +1,20 @@
 {
   "name": "crm-platform",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "CRM Platform Monorepo",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "test": "pnpm -r test",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "build": "pnpm -r build",
+    "dev": "pnpm --parallel -r dev"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10.10.0"
+  },
+  "packageManager": "pnpm@10.10.0",
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.32.0",
