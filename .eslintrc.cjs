@@ -1,5 +1,9 @@
 module.exports = {
     root: true,
+    env: {
+      node: true,      // ← sier at Node-globale som module, require osv. er tillatt
+      es2022: true
+    },
     parser: '@typescript-eslint/parser',
     parserOptions: {
       ecmaVersion: 'latest',
@@ -16,4 +20,3 @@ module.exports = {
     },
     ignorePatterns: ['dist/', 'node_modules/', 'web-frontend/dist/'],
   };
-  
