@@ -1,3 +1,10 @@
 packages:
-  - 'crm-core'
-  - 'web-frontend'
+  - crm-core
+  - web-frontend
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+onlyBuiltDependencies:
+  - '@nestjs/core'
+  - '@swc/core'
+  - bcrypt

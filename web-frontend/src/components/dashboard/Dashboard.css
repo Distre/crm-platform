@@ -1,3 +1,37 @@
+:root {
+  /* Base colors */
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --text: #111827;
+  --text-muted: #64748b;
+  --background: #ffffff;
+  --card-bg: #f8fafc;
+  --muted: #e2e8f0;
+  --muted-dark: #cbd5e1;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --radius: 0.5rem;
+
+  /* Status colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+}
+
+[data-theme="dark"] {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-light: #60a5fa;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --background: #1f2937;
+  --card-bg: #374151;
+  --muted: #4b5563;
+  --muted-dark: #64748b;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .layout {
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
@@ -97,7 +131,7 @@
   background: var(--card-bg);
   padding: var(--spacing-lg);
   border-radius: var(--radius);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow);
   transition: transform 0.2s, box-shadow 0.2s;
   border-left: 4px solid transparent;
 }
@@ -119,7 +153,7 @@
 }
 
 .customize-btn:hover {
-  background: var(--primary-dark, #2980b9);
+  background: var(--primary-dark);
 }
 
 .card-header {
@@ -233,19 +267,19 @@
 }
 
 .card.info {
-  border-left-color: var(--info, #8CA6DB);
+  border-left-color: var(--info);
 }
 
 .card.danger {
-  border-left-color: var(--danger, #E57373);
+  border-left-color: var(--danger);
 }
 
 .card.success {
-  border-left-color: var(--success, #6ECF97);
+  border-left-color: var(--success);
 }
 
 .card.warning {
-  border-left-color: var(--warning, #E6A23C);
+  border-left-color: var(--warning);
 }
 
 .card.purple {
@@ -280,4 +314,324 @@
   color: #fff;
   border-radius: var(--radius);
   cursor: pointer;
+}
+
+.widget-container {
+  width: 100%;
+  height: 300px;
+}
+
+.widget-container.has-width {
+  width: var(--widget-width, 100%);
+}
+
+.widget-container.has-height {
+  height: var(--widget-height, 300px);
+}
+
+.widget-container[data-width] {
+  --widget-width: calc(var(--widget-width) * 1%);
+}
+
+.widget-container[data-height] {
+  --widget-height: calc(var(--widget-height) * 1px);
+}
+
+.widget-config {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+}
+
+.config-group {
+  flex: 1;
+}
+
+.config-group label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.config-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.config-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: var(--text);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.export-btn:hover {
+  background: var(--primary-dark);
+}
+
+.export-btn svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.month-details {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.month-details h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.detail-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.detail-value {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.close-details {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--muted);
+  color: var(--text);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+
+.close-details:hover {
+  background: var(--muted-dark);
+}
+
+.widget {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.widget-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.stats-summary {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.stats-summary div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.stat-value.text-green-600 {
+  color: var(--success);
+}
+
+.stat-value.text-red-600 {
+  color: var(--danger);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.widget-config {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+}
+
+.config-group {
+  flex: 1;
+  min-width: 120px;
+}
+
+.config-group label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.config-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.config-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: var(--text);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.export-btn:hover {
+  background: var(--primary-dark);
+}
+
+.export-btn svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.month-details {
+  background: var(--card-bg);
+  border: 1px solid var(--muted);
+}
+
+.detail-value.text-green-600 {
+  color: var(--success);
+}
+
+.detail-value.text-red-600 {
+  color: var(--danger);
+}
+
+.close-details {
+  background: var(--muted);
+  color: var(--text);
+}
+
+.close-details:hover {
+  background: var(--muted-dark);
+}
+
+.loading,
+.error {
+  color: var(--text-muted);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  /* Adjust colors for better contrast on mobile */
+  .stat-value {
+    color: var(--text);
+  }
+
+  .detail-value {
+    color: var(--text);
+  }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .widget {
+    padding: 0.75rem;
+  }
+
+  .widget-header h2 {
+    font-size: 1.125rem;
+  }
+
+  .stat-value {
+    font-size: 1.125rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .config-group {
+    min-width: 100%;
+  }
+
+  .config-group select {
+    font-size: 0.875rem;
+  }
+
+  .export-btn {
+    font-size: 0.875rem;
+  }
+
+  .month-details {
+    padding: 0.5rem;
+  }
+
+  .detail-value {
+    font-size: 1rem;
+  }
+  
+  .detail-label {
+    font-size: 0.75rem;
+  }
 }
