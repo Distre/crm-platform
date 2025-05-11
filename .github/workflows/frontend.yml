@@ -1,0 +1,24 @@
+steps:
+  - name: Checkout code
+    uses: actions/checkout@v3
+
+  - name: Set up Node.js
+    uses: actions/setup-node@v3
+    with:
+      node-version: '18'
+
+  - name: Verify VITE_API_URL is present
+    run: echo "VITE_API_URL is set"
+    if: env.VITE_API_URL != ''
+
+  - name: Install dependencies
+    run: npm ci
+
+  - name: Build TypeScript
+    run: npm run build
+
+  - name: Run Vite build
+    run: npm run build
+
+  - name: Run tests
+    run: npm run test
