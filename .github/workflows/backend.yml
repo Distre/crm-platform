@@ -1,29 +1,44 @@
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v3
+name: Backend CI/CD
 
-  - name: Set up Node.js
-    uses: actions/setup-node@v3
-    with:
-      node-version: '18'
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-  - name: Install dependencies
-    run: npm ci
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
-  - name: Verify DATABASE_URL is present
-    run: echo "DATABASE_URL is set"
-    if: env.DATABASE_URL != ''
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  - name: Verify JWT_SECRET is present
-    run: echo "JWT_SECRET is set"
-    if: env.JWT_SECRET != ''
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-  - name: Build TypeScript
-    run: npm run build
+      - name: Install dependencies
+        run: npm ci
 
-  - name: Run tests
-    run: npm run test
+      - name: Verify DATABASE_URL is present
+        if: env.DATABASE_URL != ''
+        run: echo "DATABASE_URL is set"
 
-  - name: Build Docker image
-    if: github.ref == 'refs/heads/main'
-    run: docker build -t crm-core:latest .
+      - name: Verify JWT_SECRET is present
+        if: env.JWT_SECRET != ''
+        run: echo "JWT_SECRET is set"
+
+      - name: Build TypeScript
+        run: npm run build
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Build Docker image
+        if: github.ref == 'refs/heads/main'
+        run: docker build -t crm-core:latest .
