@@ -1,0 +1,55 @@
+.login-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-logo {
+  height: 600px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.login-form {
+  background: white;
+  padding: 3rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.login-form input[type='email'],
+.login-form input[type='password'] {
+  height: 48px;
+  padding: 0 1rem;
+  font-size: 1.1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.login-form button[type='submit'] {
+  height: 48px;
+  font-size: 1.1rem;
+  width: 100%;
+  margin-top: 1.5rem;
+}

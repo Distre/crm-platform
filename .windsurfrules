@@ -1,28 +1,48 @@
-<collaboration_protocol>
-- Før du endrer, legger til eller sletter kode:  
-  1. Gi en kort oversikt over hvilke filer/moduler som berøres.  
-  2. Forklar hvorfor endringen er nødvendig og hvilke alternativer som finnes.  
-  3. Avslutt med et eksplisitt spørsmål: “Ønsker du at jeg utfører dette?”  
-  → Vent alltid på brukerens svar før du gjør selve endringen.
-- Ikke skriv eller oppdater kode “inline” i forklaringene; bruk tydelige kodeblokker.
-- Oppdater **kun** de modulene som eksplisitt er godkjent i siste svar fra brukeren.
+# Windsurf Rules
+
 </collaboration_protocol>
 
+Before modifying, adding, or deleting any code:
+
+Provide a brief overview of which files/modules will be affected.
+
+Explain why the change is necessary and what alternatives exist.
+
+End with an explicit question: “Would you like me to proceed with this?”
+→ Always wait for the user's response before making the change.
+
+Do not write or update code inline within explanations; use clear code blocks.
+
+Only update the modules that have been explicitly approved in the user's latest response.
+
 <coding_guidelines>
-- Backend: TypeScript (Node.js + Fastify), Frontend: React/Remix.  
-- Hold strikt modulstruktur (auth, billing, inventory …); ingen skjulte avhengigheter.  
-- Foretrekk tidlige retur-setninger og maks 2 nivåer dyp nesting.  
-- Dokumentér alle nye funksjoner/klasser med JSDoc.  
-- Skriv tester (unit + integrasjon) for ny logikk før produksjons-merge.
+
+Backend: TypeScript (Node.js + Fastify), Frontend: React/Remix.
+
+Maintain a strict module structure (auth, billing, inventory, etc.); no hidden dependencies.
+
+Prefer early return statements and a maximum of 2 levels of nesting.
+
+Document all new functions/classes using JSDoc.
+
+Write tests (unit + integration) for new logic before merging to production.
+
 </coding_guidelines>
 
 <cloud_architecture>
-- All kode forventes å kjøre i containere på Kubernetes (GitOps-deploy).  
-- Infrastruktur definert som kode (Terraform/Pulumi) holdes i eget repo.  
-- Bruk miljøvariabler (12-Factor) og Secret Store (Vault) – aldri hardkodede secrets.
+
+All code is expected to run in containers on Kubernetes (GitOps-based deployment).
+
+Infrastructure-as-code (Terraform/Pulumi) is maintained in a separate repository.
+
+Use environment variables (12-Factor) and a Secret Store (Vault) – never hardcoded secrets.
+
 </cloud_architecture>
 
 <commit_policy>
-- Bruk konvensjonelle commit-meldinger (`type(scope): subject`).  
-- Inkluder “BREAKING CHANGE:” i body hvis API eller database-schema brytes.
+
+Use conventional commit messages (type(scope): subject).
+
+Include “BREAKING CHANGE:” in the body if the API or database schema is broken.
+
 </commit_policy>

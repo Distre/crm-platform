@@ -1,0 +1,49 @@
+services:
+  backend:
+    image: ghcr.io/distre/crm-platform/crm-core:latest
+    container_name: crm-core
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://crmuser:${DB_PASSWORD}@crm-postgres:5432/crm_db
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - crm_network
+
+  frontend:
+    image: ghcr.io/distre/crm-platform/web-frontend:latest
+    container_name: crm-frontend
+    environment:
+      VITE_API_URL: http://nas:3000
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - crm_network
+
+  db:
+    image: postgres:15-alpine
+    container_name: crm-postgres
+    environment:
+      POSTGRES_USER: crmuser
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: crm_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - crm_network
+
+volumes:
+  postgres_data:
+
+networks:
+  crm_network:

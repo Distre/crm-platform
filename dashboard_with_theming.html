@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="no" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Superadmin Dashboard with Theming</title>
+  <style>
+    :root {
+      /* Light mode variables */
+      --primary: #546E7A;
+      --success: #4CAF50;
+      --warning: #FF5722;
+      --danger: #D32F2F;
+      --background: #E0E0E0;
+      --card-bg: #F5F5F5;
+      --text: #1A1A1A;
+      --muted: #757575;
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --radius: 8px;
+      --font-base: 'Inter', sans-serif;
+      --topnav-height: 200
+
+      px;
+      --sidebar-width: 220px;
+    }
+    [data-theme="dark"] {
+      /* Dark mode overrides */
+      --background: #2C2C2C;
+      --card-bg: #3A3A3A;
+      --text: #E0E0E0;
+      --muted: #A0A0A0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-base);
+      background: var(--background);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-width) 1fr;
+      grid-template-rows: var(--topnav-height) 1fr;
+      grid-template-areas:
+        "sidebar topnav"
+        "sidebar main";
+      height: 100%;
+    }
+    .topnav {
+      grid-area: topnav;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--spacing-md);
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--muted);
+    }
+    .topnav .logo { font-weight: bold; color: var(--primary); }
+    .topnav .search input {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border: 1px solid var(--muted);
+      border-radius: var(--radius);
+      background: var(--background);
+      color: var(--text);
+    }
+    .topnav .actions { display: flex; gap: var(--spacing-md); align-items: center; }
+    .topnav .actions .icon {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+    .topnav .actions .icon::after {
+      content: '';
+      position: absolute;
+      top: -4px; right: -4px;
+      width: 8px; height: 8px;
+      background: var(--danger);
+      border-radius: 50%;
+    }
+    .topnav .user { text-align: right; font-size: 0.9rem; }
+
+    .sidebar {
+      grid-area: sidebar;
+      background: var(--primary);
+      color: #fff;
+      padding: var(--spacing-lg) var(--spacing-md);
+    }
+    .sidebar h2 { margin-bottom: var(--spacing-lg); font-size: 1.2rem; }
+    .sidebar .nav-item {
+      margin-bottom: var(--spacing-md);
+      cursor: pointer;
+    }
+    .sidebar .nav-item:hover { text-decoration: underline; }
+
+    .main {
+      grid-area: main;
+      padding: var(--spacing-lg);
+      position: relative;
+      overflow: auto;
+    }
+    .widgets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-lg);
+    }
+    .card {
+      background: var(--card-bg);
+      padding: var(--spacing-md);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: grab;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+    }
+    .card.hold {
+      cursor: grabbing;
+      opacity: 0.8;
+    }
+    .card h3 {
+      margin-bottom: var(--spacing-sm);
+      color: var(--primary);
+    }
+    .chart-placeholder {
+      height: 120px;
+      background: var(--muted);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--card-bg);
+      font-size: 0.9rem;
+    }
+    .table-container {
+      margin-top: var(--spacing-lg);
+    }
+    .table-container table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .table-container th, .table-container td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-bottom: 1px solid var(--muted);
+      text-align: left;
+      color: var(--text);
+    }
+    .table-container th {
+      background: var(--card-bg);
+    }
+    #mode-toggle {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Superadmin</h2>
+      <div class="nav-item">Dashboard</div>
+      <div class="nav-item">Brukere & Roller</div>
+      <div class="nav-item">Sikkerhet</div>
+      <div class="nav-item">Systemstatus</div>
+      <div class="nav-item">Integrasjoner</div>
+      <div class="nav-item">Innstillinger</div>
+      <div class="nav-item">Rapporter</div>
+      <div class="nav-item">Logg</div>
+    </aside>
+    <header class="topnav">
+      <div class="logo">CRM/ERP</div>
+      <div class="search"><input type="text" placeholder="Søk globalt..."></div>
+      <div class="actions">
+        <button id="mode-toggle">Dark Mode</button>
+        <div class="icon">🔔</div>
+        <div class="user">Admin<br><small>super@crm.no</small></div>
+      </div>
+    </header>
+    <main class="main">
+      <div class="widgets">
+        <div class="card"><h3>Systemstatus</h3><div class="chart-placeholder">Graf</div></div>
+        <div class="card"><h3>Hendelses-alarm</h3><p>Kritisk: 2 | Høy: 5 | Medium: 12</p></div>
+        <div class="card"><h3>Brukeraktivitet</h3><p>Innlogginger: 123</p></div>
+        <div class="card"><h3>Ressursbruk</h3><div class="chart-placeholder">Graf</div></div>
+        <div class="card"><h3>Integrasjonsstatus</h3><p>API: OK | Regn: Siste synk 02:15 | E-post: Feil</p></div>
+        <div class="card"><h3>Nøkkeltall (KPIs)</h3><p>Omsetning: kr 125k</p></div>
+        <div class="card"><h3>Sikkerhetsoversikt</h3><p>Feilede pålogginger: 8</p></div>
+      </div>
+      <div class="card table-container">
+        <h3>Revisjonslogger</h3>
+        <table>
+          <thead><tr><th>Admin</th><th>Handling</th><th>Tidspunkt</th></tr></thead>
+          <tbody>
+            <tr><td>Kari Nordmann</td><td>Opprettet bruker</td><td>27.04.2025 14:32</td></tr>
+            <tr><td>Ola Hansen</td><td>Endret roller</td><td>26.04.2025 09:12</td></tr>
+            <tr><td>Lise Larsen</td><td>Nullstilte passord</td><td>25.04.2025 18:45</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+  <script>
+    const btn = document.getElementById('mode-toggle');
+    btn.addEventListener('click', () => {
+      const root = document.documentElement;
+      const current = root.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      btn.textContent = next === 'light' ? 'Dark Mode' : 'Light Mode';
+    });
+    document.querySelectorAll('.card').forEach(card => {
+      card.onmousedown = function(e) {
+        e.preventDefault();
+        card.classList.add('hold');
+        let shiftX = e.clientX - card.getBoundingClientRect().left;
+        let shiftY = e.clientY - card.getBoundingClientRect().top;
+        card.style.position = 'absolute';
+        card.style.zIndex = 1000;
+        moveAt(e.pageX, e.pageY);
+        function moveAt(pageX, pageY) {
+          card.style.left = pageX - shiftX + 'px';
+          card.style.top = pageY - shiftY + 'px';
+        }
+        function onMouseMove(e) {
+          moveAt(e.pageX, e.pageY);
+        }
+        document.addEventListener('mousemove', onMouseMove);
+        card.onmouseup = function() {
+          document.removeEventListener('mousemove', onMouseMove);
+          card.onmouseup = null;
+          card.classList.remove('hold');
+        };
+      };
+      card.ondragstart = () => false;
+    });
+  </script>
+</body>
+</html>

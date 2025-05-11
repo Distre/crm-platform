@@ -1,0 +1,215 @@
+Solo CRM/ERP Build Guide V1
+Dokument: Trinn for trinn byggeanvisning for Solo CRM/ERP plattformen på Synology NAS.
+________________________________________
+0. Forberedelser
+0.1 Portainer
+Installer Portainer på NAS via Docker. Tilgjengelig på https://nas:9000.
+0.2 Postgres
+Opprett crm-postgres-container med docker-compose.dev.yml. Lytter på port 5433.
+0.3 Backup
+Sett opp daglig pg_dump-cronjob med 7 dagers retention på NAS.
+________________________________________
+1. Lokal utviklings¬miljø
+1.1 Node 20 + PNPM
+Installer Node v20 med nvm install 20 og pnpm install -g pnpm.
+1.2 Monorepo
+Kjør pnpm init i rot, eventuelt legg til Turborepo-skjelett.
+1.3 Docker Compose (dev)
+Start Postgres + pgAdmin med:
+docker compose -f docker-compose.dev.yml up -d
+________________________________________
+2. CRM moduler
+Nr	Modul	Beskrivelse	Status
+2.1	crm-core (NestJS)	CLI generert NestJS prosjekt	✅ (2025 05 05)
+2.2	Customer	CRUD + unit tester	✅ (2025 05 05)
+2.3	React skeleton	Vite/React + auth stub	✅ (2025 05 06)
+2.4	Contact	CRUD + unit tester	☐
+2.5	Lead	CRUD + unit tester	☐
+2.6	Deal	CRUD + unit tester	☐
+2.7	SupportTicket	Ticket system for support	☐
+2.8	CalendarEvent	Kalenderhendelser + påminnelser	☐
+2.9	Task	Oppgave¬behandling + påminnelser	☐
+2.10	Intern Chat	Sanntidschat mellom ansatte	☐
+2.11	Ansatt	Håndtering av ansatte: opprettelse, roller, profil	☐
+2.12	Superuser	Administrativt dashboard (innstillinger, e postserver)	☐
+2.13	Dashboard	Tilpassede dashboards per ansatt/avdeling	☐
+2.14	Survey	Kundeundersøkelser & tilbakemeldinger (NPS)	☐
+2.15	Email integrasjon	Send/motta e post (SMTP/IMAP)	☐
+2.16	Kampanje	Markedsføringskampanjer	☐
+2.17	Territory	Salgsområder og regionstyring	☐
+2.18	SalesForecasting	Salgsprognoser & pipeline analyse	☐
+2.19	Dokument	Lagring/deling av dokumenter	☐
+2.20	Integrasjons hub	Plattform for eksterne integrasjoner	☐
+2.21	E commerce	Nettbutikk integrasjon (Shopify, WooCommerce)	☐
+2.22	Omni channel Sales	Salg på nett, butikk, telefon	☐
+2.23	Order Management	Ordreflyt, plukking, pakking, utsendelse	☐
+2.24	Cart Recovery	Handlekurv påminnelser via e post/SMS	☐
+2.25	PIM	Product Information Management	☐
+2.26	Regnskaps integrasjon	Synk mot Fiken, Agro Økonomi, DNB, Visma Global/net, etc.	☐
+2.27	Grossist	Integrert beholdningsstyring, logistikk, automatisering	☐
+2.28	Modul interaksjoner	Se beskrivelser under	☐
+Modul interaksjoner:
+•	E commerce ↔ Customer, Invoice
+•	Omni channel ↔ Dashboard, Analytics
+•	Order Management ↔ Warehouse, Purchase Order
+•	Cart Recovery ↔ Notifications
+•	PIM ↔ Dokument, Inventory
+________________________________________
+3. Autentisering & Sikkerhet
+3.1 JWT Auth
+Passport + JWT strategi | ✅ (2025 05 06)
+3.2 Row Level Security
+RLS policy i Postgres | ✅ (2025 05 06)
+________________________________________
+4. Faktura
+4.1 Invoice modul
+Entitet + PDF stub | ✅ (2025 05 06)
+4.2 Invoice UI
+Liste + form i frontend | ☐
+________________________________________
+5. CI/CD & Produksjon
+5.1 Image build
+GitHub Action: lint → test → build | ☐
+5.2 Prod deploy
+docker compose -f prod.yml up -d på NAS | ☐
+________________________________________
+6. Pilot & Feedback
+6.1 Pilot import
+CSV import + 1 kunde live | ☐
+6.2 Pilotfeedback
+Kritiske bugs lukket | ☐
+________________________________________
+7. Lagerstyring
+7.1 Warehouse modul
+product + stock_move | ☐
+________________________________________
+8. EHF/PEPPOL
+8.1 Invoice 2.0
+EHF/PEPPOL stub | ☐
+________________________________________
+9. Kvalitet & Skalerbarhet
+9.1 Hardening
+npm audit, OWASP scan | ☐
+9.2 Load test
+k6 500 rps over 30 min | ☐
+________________________________________
+10. Analytics & Rapportering
+10.1 Reporting
+Generer rapporter (PDF/Excel) | ☐
+10.2 Analytics
+Interaktivt KPI dashboard | ☐
+10.3 Notifications
+E post & SMS varslinger | ☐
+10.4 Audit logs
+Spor brukeraktiviteter + endringer | ☐
+10.5 Mobile
+Mobilvennlig UI / PWA | ☐
+________________________________________
+11. Innkjøp & Leverandør
+11.1 Purchase Order
+Innkjøpsordrebehandling | ☐
+11.2 Supplier
+Leverandørhåndtering | ☐
+11.3 Marketing
+E postkampanjer & lead nurturing | ☐
+11.4 Workflow
+Tilpassbare arbeidsflyter | ☐
+________________________________________
+12. Produksjon & Økonomi
+12.1 Inventory
+Lagerverdivurdering | ☐
+12.2 BOM
+Oppskrifter & produksjonsstyring | ☐
+12.3 Manufacturing
+Arbeidsordre & produksjonsplanlegging | ☐
+12.4 Quality
+Inspeksjoner & SOP | ☐
+12.5 Maintenance
+Maskinvedlikehold & feilhåndtering | ☐
+12.6 HR & Payroll
+Ansattstyring & lønn | ☐
+12.7 Accounting
+Hovedbok, AR/AP | ☐
+12.8 Bank Reconciliation
+Bankavstemming & transaksjons¬spor | ☐
+12.9 Tax & Compliance
+Skatteberegning & rapportering | ☐
+12.10 Budget & Forecasting
+Budsjett & prognoser | ☐
+12.11 Produsent
+Kvalitet, ressursutnyttelse, overtidskostnader, beholdningskontroll | ☐
+12.12 Grossist
+Beholdningsstyring, logistikk & automatisering | ☐
+________________________________________
+📋 Fremdrifts tracker
+Nr	Steg	Mål/Leveranse	Status
+0.1	Portainer installert	Container portainer kjører på nas:9000	✅ (2025 05 04)
+0.2	Postgres container oppe	crm-postgres lytter på port 5433	✅ (2025 05 05)
+0.3	Backup script aktivt	Daglig pg_dump cron + 7 d retention	✅ (2025 05 05)
+1.1	Node 20 + PNPM lokalt	nvm + pnpm installert	✅ (2025 05 05)
+1.2	Monorepo init	pnpm init + Turborepo	✅ (2025 05 05)
+1.3	docker compose.dev	Postgres + pgAdmin via docker-compose.dev.yml	✅ (2025 05 05)
+2.1	crm-core (NestJS)	CLI generert NestJS app	✅ (2025 05 05)
+2.2	Customer modul	CRUD + unit tester	✅ (2025 05 05)
+2.3	React skeleton	Vite/React + auth stub	✅ (2025 05 06)
+2.4	Contact modul	CRUD + unit tester	☐
+2.5	Lead modul	CRUD + unit tester	☐
+2.6	Deal modul	CRUD + unit tester	☐
+2.7	SupportTicket modul	Ticket system for support	☐
+2.8	CalendarEvent modul	Kalenderhendelser + påminnelser	☐
+2.9	Task modul	Oppgave¬behandling + påminnelser	☐
+2.10	Intern Chat modul	Sanntidschat mellom ansatte	☐
+2.11	Ansatt modul	Ansatt¬håndtering: opprettelse, roller, profil	☐
+2.12	Superuser modul	Administrativt dashboard	☐
+2.13	Dashboard modul	Tilpassede dashboards per ansatt/avdeling	☐
+2.14	Survey modul	Kundeundersøkelser & tilbakemeldinger	☐
+2.15	Email integrasjon	Send/motta e post (SMTP/IMAP)	☐
+2.16	Kampanje modul	Markedsføringskampanjer	☐
+2.17	Territory modul	Salgsområder og regionstyring	☐
+2.18	SalesForecasting	Salgsprognoser & pipeline analyse	☐
+2.19	Dokument modul	Lagring/deling av dokumenter	☐
+2.20	Integrasjons hub	Plattform for eksterne integrasjoner	☐
+2.21	E commerce modul	Nettbutikk integrasjon	☐
+2.22	Omni channel Sales	Salg på nett, butikk, telefon	☐
+2.23	Order Management	Ordreflyt, plukking, pakking, utsendelse	☐
+2.24	Cart Recovery	Handlekurv påminnelser via e post/SMS	☐
+2.25	PIM modul	Product Information Management	☐
+2.26	Regnskaps integrasjon	Synk mot Fiken, Agro Økonomi, DNB, Visma Global/net	☐
+2.27	Grossist modul	Beholdningsstyring, logistikk & automatisering	☐
+2.28	Modul interaksjoner	Se beskrivelser under	☐
+3.1	JWT Auth modul	Passport + JWT setup	✅ (2025 05 06)
+3.2	Row Level Security	RLS policy testet	✅ (2025 05 06)
+4.1	Invoice modul	Entitet + PDF stub	✅ (2025 05 06)
+4.2	Invoice UI	Liste + form i frontend	☐
+5.1	Image build	GitHub Action: lint → test → build	☐
+5.2	Prod deploy	docker compose -f prod.yml up -d på NAS	☐
+6.1	Pilot import	CSV import + 1 kunde live	☐
+6.2	Pilotfeedback	Kritiske bugs lukket	☐
+7.1	Warehouse modul	product + stock_move	☐
+8.1	Invoice 2.0	EHF/PEPPOL stub	☐
+9.1	Hardening	npm audit, OWASP scan	☐
+9.2	Load test	k6 500 rps over 30 min	☐
+10.1	Reporting modul	Generer rapporter (PDF/Excel)	☐
+10.2	Analytics dashboard	Interaktivt KPI dashboard	☐
+10.3	Notifications modul	E post & SMS varslinger	☐
+10.4	Audit logs	Spor brukeraktiviteter + endringer	☐
+10.5	Mobile support	Mobilvennlig UI / PWA	☐
+11.1	Purchase Order modul	Innkjøpsordrebehandling	☐
+11.2	Supplier modul	Leverandørhåndtering	☐
+11.3	Marketing Automation	E postkampanjer & lead nurturing	☐
+11.4	Workflow Engine	Tilpassbare arbeidsflyter	☐
+12.1	Inventory Valuation	Lagerverdivurdering	☐
+12.2	Bill of Materials	Oppskrifter & produksjonsstyring	☐
+12.3	Manufacturing modul	Arbeidsordre & produksjonsplanlegging	☐
+12.4	Quality Management	Kvalitetsinspeksjoner & SOP	☐
+12.5	Maintenance Module	Maskinvedlikehold & feilhåndtering	☐
+12.6	HR & Payroll	Ansattstyring & lønnsutbetaling	☐
+12.7	Accounting Core	Hovedbok, AR/AP	☐
+12.8	Bank Reconciliation	Bankavstemming & transaksjons¬spor	☐
+12.9	Tax & Compliance	Skatteberegning & rapportering	☐
+12.10	Budget & Forecasting	Budsjettplanlegging & prognoser	☐
+12.11	Produsent modul	Prosessproduksjon: kvalitet, ressursutnyttelse, overtidskostnader, beholdningskontroll	☐
+12.12	Grossist modul	Beholdningsstyring, logistikk & automatisering	☐
+________________________________________
+Oppdatert: 2025 05 06
+

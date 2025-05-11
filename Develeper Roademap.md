@@ -3,8 +3,7 @@ Mål: Få en MVP (Customer + Invoice) i drift på Synology NAS en – uten å mi
 ________________________________________
 📋 Fremdrifts tracker
 Nr	Steg	Mål/Leveranse	Status		
-0.1	Portainer installert	Container portainer kjører på http://nas:9000
-✅ (2025 05 04)		
+0.1	Portainer installert	Container portainer kjører på http://nas:9000	✅ (2025 05 04)		
 0.2	Postgres container oppe	crm-postgres lytter på port 5433	✅ (2025 05 05)		
 0.3	Backup script aktivt	Cron jobb med pg_dump + 7 dagers retention	✅ (2025 05 05)		
 1.1	Node 20 + PNPM lokalt	Dev maskin klar (nvm + pnpm)	✅ (2025 05 05)		
@@ -14,10 +13,10 @@ Nr	Steg	Mål/Leveranse	Status
 2.2	Customer modul	CRUD + unit tester	✅ (2025 05 05)		
 2.3	React skeleton	Vite/Next + auth stub	✅ (2025 05 06)		
 3.1	JWT Auth modul	Installer Passport+JWT, auth module & service	✅ (2025 05 06)		
-3.2	Row Level Security	RLS policy testet	☐		
-4.1	Invoice modul	Entitet + PDF stub	☐		
-4.2	Invoice UI	Liste + form i front	☐		
-5.1	Image build	GitHub Action: lint→test→build	☐		
+3.2	Row Level Security	RLS policy testet	✅		
+4.1	Invoice modul	Entitet + PDF stub	✅		
+4.2	Invoice UI	Liste + form i front	✅		
+5.1	Image build	GitHub Action: lint→test→build	✅ (2025 05 08)		
 5.2	Prod deploy	docker compose -f prod.yml up -d på NAS	☐		
 6.1	Pilot import	CSV import + 1 kunde live	☐		
 6.2	Pilotfeedback	Critical bugs lukket	☐		
@@ -132,14 +131,14 @@ import { JwtStrategy } from './jwt.strategy';
 })
 export class AuthModule {}
 3.	Neste steg: Lag en beskyttet rute med @UseGuards(AuthGuard('jwt')) i CustomerController.
-3.2 Row Level Security ☐
+3.2 Row Level Security ✅
 ________________________________________
 4 • Faktura
-4.1 Invoice modul ☐
-4.2 Invoice UI ☐
+4.1 Invoice modul ✅
+4.2 Invoice UI ✅
 ________________________________________
 5 • CI/CD & Prod deploy
-5.1 Image build ☐
+5.1 Image build ✅
 5.2 Prod deploy ☐
 ________________________________________
 6 • Pilotfase
@@ -150,7 +149,7 @@ ________________________________________
 ________________________________________
 8 • Invoice 2.0 ☐
 ________________________________________
-9 • Hardening & Load test ☐
+9 • Hardening & Load test
 9.1 Hardening ☐
 9.2 Load test ☐
 ________________________________________

@@ -1,13 +1,33 @@
 import { useState } from 'react';
-import { InvoiceForm } from './components/invoice/InvoiceForm';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { LoginPage } from './components/auth/LoginPage';
+import { Dashboard } from './components/dashboard/Dashboard';
+import { CustomerList } from './components/customer/CustomerList';
+import { CustomerForm } from './components/customer/CustomerForm';
 import { InvoiceList } from './components/invoice/InvoiceList';
+import { InvoiceForm } from './components/invoice/InvoiceForm';
+
 function App() {
-  const [refresh, setRefresh] = useState(0);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+  if (!isAuthenticated) {
+    return <LoginPage onLogin={() => setIsAuthenticated(true)} />;
+  }
+
   return (
-    <div className="p-8">
-      <InvoiceForm onCreated={() => setRefresh(r => r + 1)} />
-      <InvoiceList key={refresh} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />}>
+          <Route path="customers" element={<CustomerList />} />
+          <Route path="customers/new" element={<CustomerForm onCreated={() => {}} />} />
+          <Route path="customers/:id" element={<CustomerForm onCreated={() => {}} />} />
+          <Route path="invoices" element={<InvoiceList />} />
+          <Route path="invoices/new" element={<InvoiceForm onCreated={() => {}} />} />
+          <Route path="invoices/:id" element={<InvoiceForm onCreated={() => {}} />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

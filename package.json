@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "description": "CRM Platform Monorepo",
-  "type": "module",
   "scripts": {
     "test": "pnpm -r test",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
