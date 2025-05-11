@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import App from '../../App';
+
 
 vi.mock('../invoice/InvoiceForm', () => ({
   InvoiceForm: () => <div data-testid="invoice-form">Invoice Form</div>
@@ -16,6 +16,8 @@ vi.mock('../../contexts/AuthContext', () => ({
     isAuthenticated: true,
   }),
 }));
+
+import App from '../../App';
 
 describe('App', () => {
   it('renders invoice form and list', () => {
