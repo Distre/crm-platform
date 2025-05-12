@@ -1,7 +1,6 @@
 import React from 'react';
 import ActivityLogItem from './ActivityLogItem';
-import { ActivityLog } from './types';
-
+import type { ActivityLog } from './types';
 interface ActivityLogListProps {
   activities: ActivityLog[];
   className?: string;

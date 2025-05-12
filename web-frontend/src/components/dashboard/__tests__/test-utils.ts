@@ -1,8 +1,13 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { useInvoiceStats } from '../hooks/useInvoiceStats';
-import { useExport } from '../../../hooks/useExport';
+import { render } from '@testing-library/react';
 
-export const mockInvoiceStats = {
+type InvoiceStats = {
+  monthlyStats: { month: string; paid: number; unpaid: number }[];
+  totalInvoices: number;
+  paidInvoices: number;
+  unpaidInvoices: number;
+};
+
+export const mockInvoiceStats: InvoiceStats = {
   monthlyStats: [
     {
       month: 'Januar',
@@ -20,7 +25,7 @@ export const mockInvoiceStats = {
   unpaidInvoices: 2
 };
 
-export const mockUseInvoiceStats = (data: any = mockInvoiceStats) => {
+export const mockUseInvoiceStats = (data: InvoiceStats = mockInvoiceStats) => {
   jest.mock('../hooks/useInvoiceStats', () => ({
     useInvoiceStats: () => ({
       stats: data,
@@ -36,7 +41,10 @@ export const mockUseExport = () => {
   }));
 };
 
-export const customRender = (ui: React.ReactElement, options = {}) => {
+export const customRender = (
+  ui: React.ReactElement,
+  options?: Parameters<typeof render>[1]
+) => {
   mockUseInvoiceStats();
   mockUseExport();
   return render(ui, options);

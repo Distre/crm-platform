@@ -13,22 +13,22 @@ export const useInvoiceStats = ({
   const [error, setError] = useState<string | null>(null);
   const api = useApi();
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        setLoading(true);
-        const response = await api.get('/api/invoice/stats', {
-          params: { startDate, endDate, status, groupBy }
-        });
-        setStats(response.data);
-        setError(null);
-      } catch (err) {
-        setError('Kunne ikke hente fakturastatistikk');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchStats = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get('/api/invoice/stats', {
+        params: { startDate, endDate, status, groupBy }
+      });
+      setStats(response.data);
+      setError(null);
+    } catch (err) {
+      setError('Kunne ikke hente fakturastatistikk');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchStats();
   }, [startDate, endDate, status, groupBy, api]);
 
@@ -36,6 +36,6 @@ export const useInvoiceStats = ({
     stats,
     loading,
     error,
-    refetch: () => fetchStats()
+    refetch: fetchStats
   };
 };

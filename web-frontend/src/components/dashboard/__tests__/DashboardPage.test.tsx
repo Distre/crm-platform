@@ -1,12 +1,11 @@
-import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import DashboardPage from '../DashboardPage';
+import DashboardPage from '../Dashboard';
 
-vi.mock('../../invoice/InvoiceForm', () => ({
+jest.mock('../../invoice/InvoiceForm', () => ({
   InvoiceForm: () => <div data-testid="invoice-form">Invoice Form</div>
 }));
 
-vi.mock('../../invoice/InvoiceList', () => ({
+jest.mock('../../invoice/InvoiceList', () => ({
   InvoiceList: () => <div data-testid="invoice-list">Invoice List</div>
 }));
 

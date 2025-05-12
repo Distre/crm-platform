@@ -2,14 +2,16 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './contexts/hooks';
 import { LoginPage } from './components/auth/LoginPage';
-import { Dashboard } from './components/dashboard/Dashboard';
+import Dashboard from './components/dashboard/Dashboard';
 import { CustomerList } from './components/customer/CustomerList';
 import { CustomerForm } from './components/customer/CustomerForm';
 import { InvoiceList } from './components/invoice/InvoiceList';
 import { InvoiceForm } from './components/invoice/InvoiceForm';
 
 function AuthenticatedRoutes() {
-  const { loading } = useAuth();
+  const auth = useAuth();
+if (!auth) return null;
+const { loading } = auth;
   
   if (loading) {
     return <div>Loading...</div>;

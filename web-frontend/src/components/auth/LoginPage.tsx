@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/hooks';
 import logo from '../../assets/images/logo.svg';
 import './LoginPage.css';
 
 export const LoginPage = () => {
-  const { login } = useAuth();
+  const auth = useAuth();
+  const login = auth?.login;
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,10 +17,11 @@ export const LoginPage = () => {
     setError('');
 
     try {
-      await login(email, password);
+      await login?.(email, password);
       navigate('/');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Login feilet. Vennligst prøv igjen.');
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || 'Login feilet. Vennligst prøv igjen.');
     }
   };
 
@@ -27,15 +29,12 @@ export const LoginPage = () => {
     <div className="login-container bg-gray-50">
       <div className="login-form-container">
         <div>
-          <img
-            className="mx-auto login-logo"
-            src={logo}
-            alt="Distre Logo"
-          />
+          <img className="mx-auto login-logo" src={logo} alt="Distre Logo" />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Logg inn på din konto
           </h2>
         </div>
+
         <form className="login-form space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" value="true" />
           <div className="space-y-4">
@@ -55,6 +54,7 @@ export const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
+
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 Passord
