@@ -21,18 +21,20 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Verify VITE_API_URL is present
         if: env.VITE_API_URL != ''
         run: echo "VITE_API_URL is set"
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
-      - name: Build TypeScript
-        run: npm run build
-
-      - name: Run Vite build
-        run: npm run build
+      - name: Build project
+        run: pnpm run build
 
       - name: Run tests
-        run: npm run test
+        run: pnpm run test
