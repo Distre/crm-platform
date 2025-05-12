@@ -2,13 +2,14 @@ name: Backend CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -17,28 +18,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Configure Git user (for CI tools that need Git)
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "ci@github.com"
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.10.0
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: Verify DATABASE_URL is present
-        if: env.DATABASE_URL != ''
-        run: echo "DATABASE_URL is set"
-
-      - name: Verify JWT_SECRET is present
-        if: env.JWT_SECRET != ''
-        run: echo "JWT_SECRET is set"
+        run: pnpm install --frozen-lockfile
 
       - name: Build TypeScript
-        run: npm run build
+        run: pnpm run build
 
       - name: Run tests
-        run: npm run test
-
-      - name: Build Docker image
-        if: github.ref == 'refs/heads/main'
-        run: docker build -t crm-core:latest .
+        run: pnpm run test
