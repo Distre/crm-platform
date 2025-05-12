@@ -16,15 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set up Node.js 20
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
 
-      - name: Install pnpm
+      - name: Install pnpm 10.10.0
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 10.10.0
 
       - name: Verify VITE_API_URL is present
         if: env.VITE_API_URL != ''
